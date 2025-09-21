@@ -1,0 +1,106 @@
+:root{
+  --page-bg: #fff9db;     /* light yellow */
+  --text: #0b1220;        /* dark text for page */
+  --card-bg: #ffffff;     /* default cell background */
+  --cell-border: #333;    /* cell border */
+  --o-bg: #1f2937;        /* dark background for O */
+  --accent: #7dd3fc;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+body{
+  background: var(--page-bg);
+  color: var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+/* App container */
+.app{width:100%;max-width:720px}
+.header{margin-bottom:12px;text-align:center}
+.title{margin:0;font-size:clamp(20px,4vw,28px)}
+.subtitle{margin:4px 0 0;color:rgba(11,18,32,0.7);font-size:14px}
+
+.panel{
+  background:transparent;
+  padding:12px;
+  border-radius:12px;
+}
+
+/* Status */
+.status{
+  text-align:center;
+  margin-bottom:12px;
+  font-weight:600;
+}
+
+/* Board: responsive squares */
+.board{
+  display:grid;
+  gap:8px;
+  /* each cell width between 64px and 120px depending on viewport */
+  grid-template-columns: repeat(3, clamp(64px, 20vw, 120px));
+  justify-content:center;
+  margin:0 auto;
+}
+
+/* Cell button */
+.cell{
+  aspect-ratio:1/1;
+  display:inline-grid;
+  place-items:center;
+  font-size:clamp(28px,7vw,64px);
+  background:var(--card-bg);
+  border-radius:10px;
+  border:2px solid var(--cell-border);
+  cursor:pointer;
+  user-select:none;
+  transition:transform .08s ease, box-shadow .12s ease;
+  color:var(--text);
+}
+
+/* Active tap effect */
+.cell:active{ transform:scale(.98); }
+
+/* Disabled cell */
+.cell[disabled]{ opacity:0.9; cursor:not-allowed; }
+
+/* Player colors:
+   - X appears black on light (default)
+   - O appears white on dark background for contrast
+*/
+.cell.x{
+  color: black;
+  background: var(--card-bg);
+}
+.cell.o{
+  color: white;
+  background: var(--o-bg);
+}
+
+/* Winning highlight */
+.cell.win{
+  box-shadow: 0 6px 18px rgba(34,197,94,0.18);
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(34,197,94,0.8);
+}
+
+/* Controls */
+.controls{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.btn{padding:8px 14px;border-radius:8px;border:0;background:var(--accent);color:#07202a;font-weight:600;cursor:pointer}
+.btn-muted{background:transparent;border:1px solid rgba(11,18,32,0.08);color:rgba(11,18,32,0.8)}
+
+/* Footer */
+.footer{margin-top:10px;color:rgba(11,18,32,0.7);font-size:13px;text-align:center}
+
+/* Focus (keyboard) */
+.cell:focus{outline:3px solid rgba(125,211,252,0.18);outline-offset:3px}
+
+/* Small screens tweak */
+@media (max-width:420px){
+  .board{gap:6px}
+  .controls{gap:6px}
+}
